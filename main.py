@@ -23,6 +23,8 @@ def gate(text):
     text.encode("utf-8")
     if not 1 <= len(text) <= 200:
         raise ValueError("entry is %d chars, gate is 1-200" % len(text))
+    if any(ord(ch) < 0x20 and ch not in "\t" for ch in text):
+        raise ValueError("entry holds a control character")
     if not text.strip():
         raise ValueError("entry is only whitespace")
     if text != text.strip():
